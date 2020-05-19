@@ -2,21 +2,26 @@
 
 function svgturkiyeharitasi() {
   $("#svg-turkiye-haritasi path").hover(function() {
-    if ($(this).parent().attr("id") == "guney-kibris") return false;
-    $(".il-isimleri").html("<div>" + $(this).parent().data("iladi") + "</div>");
-    $(this).on("mousemove", function(event) {
-      $(".il-isimleri").css("top", (event.pageY + 25));
-      $(".il-isimleri").css("left", event.pageX);
-    });
-  },function(){
-    $(".il-isimleri").html("");
-  });
-  $("#svg-turkiye-haritasi path").on("click", function(event) {
-    if ($(this).parent().attr("id") == "guney-kibris") return false;
-    var ilid = $(this).parent().attr("id");
-    var iladi = $(this).parent().data("iladi");
-    var plakakodu = $(this).parent().data("plakakodu");
-    var alankodu = $(this).parent().data("alankodu");
-    window.location = "#" + ilid + "-" + plakakodu;
+    const $this = $(this)
+    if ($this.parent().attr("id") == "guney-kibris") return false;
+    $(".il-isimleri").html(`<div>${$this.parent().data("iladi")}</div>`);
+    
+    $this.on("mousemove", e => {
+      $(".il-isimleri").css({
+        "top": e.pageY + 25,
+        "left": e.pageX
+      })
+    })
+
+  },() => $(".il-isimleri").html(""));
+
+  $("#svg-turkiye-haritasi path").on("click", function() {
+    const $this = $(this)
+    if ($this.parent().attr("id") == "guney-kibris") return false;
+    let ilId = $this.parent().attr("id");
+    let ilAdi = $this.parent().data("iladi");
+    let plakaKodu = $this.parent().data("plakakodu");
+    let alanKodu = $this.parent().data("alankodu");
+    window.location = "#" + ilId + "-" + plakaKodu;
   });
 }
